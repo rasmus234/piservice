@@ -14,6 +14,7 @@ public class PingController : ControllerBase
     [HttpGet]
     public ActionResult<string> Get([FromQuery] string address)
     {
+        Console.Out.WriteLine(address);
         return $"Hello {address}";
     }
 }
