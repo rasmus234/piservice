@@ -21,12 +21,10 @@ public class PingController : ControllerBase
     [HttpGet]
     public ActionResult<string> Get([FromQuery] string address, [FromQuery] string host)
     {
-        //add host to hosts
         if (host != "" && address != "")
         {
-            hosts.Add(host, address);
+            hosts[host] = address;
         }
-
         Console.Out.WriteLine(address + " " + host);
         
         return Ok(new {address,host});
