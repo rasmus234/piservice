@@ -11,10 +11,37 @@ namespace WebApplicationpi.Controllers;
 [ApiController]
 public class PingController : ControllerBase
 {
-    [HttpGet]
-    public ActionResult<string> Get([FromQuery] string address)
+    private Dictionary<string, string> hosts;
+    
+    public PingController(Dictionary<string, string> hosts)
     {
-        Console.Out.WriteLine(address);
-        return $"Hello {address}";
+        this.hosts = hosts;
+    }
+
+    [HttpGet]
+    public ActionResult<string> Get([FromQuery] string address, [FromQuery] string host)
+    {
+        //add host to hosts
+        if (host != "" && address != "")
+        {
+            hosts.Add(host, address);
+        }
+
+        Console.Out.WriteLine(address + " " + host);
+        
+        return Ok(new {address,host});
+    }
+    
+    [HttpGet("host")]
+    public ActionResult<string> GetHost([FromQuery] string host)
+    {
+        if (hosts.ContainsKey(host))
+        {
+            return Ok(hosts[host]);
+        }
+        else
+        {
+            return NotFound();
+        }
     }
 }

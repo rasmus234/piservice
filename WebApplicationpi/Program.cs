@@ -9,6 +9,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var hosts = new Dictionary<string,string>();
+
+builder.Services.AddSingleton(hosts);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
